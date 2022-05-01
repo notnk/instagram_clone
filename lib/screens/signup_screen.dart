@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -36,7 +38,7 @@ class SignupScreenState extends State<SignupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Flexible(child: Container(),flex: 2,),
+              Flexible(child: Container(),flex: 1,),
               //svg image
               SvgPicture.asset('assets/ic_instagram.svg',height: 64,color: Colors.white,),
               const SizedBox(height: 64,),
@@ -45,7 +47,7 @@ class SignupScreenState extends State<SignupScreen> {
                 children: [
                   const CircleAvatar(
                     radius: 64,
-                    backgroundImage: NetworkImage(''),
+                    backgroundImage: NetworkImage('https://images.unsplash.com/photo-1644982647869-e1337f992828?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60'),
                   ),
                   Positioned(
                     bottom: -10,
@@ -88,18 +90,29 @@ class SignupScreenState extends State<SignupScreen> {
                 ),
                 const SizedBox(height: 24,),
               //button login
-              Container(
-                child:const Text('Sign Up'),
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 12,),
-                decoration: const ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4),
+              InkWell(
+                onTap: () async {
+                  String res = await AuthMethods().signUpUser(
+                    email:_emailController.text,
+                    password:_passwordController.text,
+                    username:_usernameController.text,
+                    bio: _bioController.text,
+                  );
+                  print(res);
+                },
+                child: Container(
+                  child:const Text('Sign Up'),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 12,),
+                  decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4),
+                      ),
                     ),
-                  ),
-                  color: Colors.blue,
-                  ),
+                    color: Colors.blue,
+                    ),
+                ),
               ),
                const SizedBox(height: 12,),
                Flexible(child: Container(),flex: 2,),
@@ -111,7 +124,7 @@ class SignupScreenState extends State<SignupScreen> {
                     child: const Text('Dont have a account?'),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {},
                     child: Container(
                       child: const Text(
