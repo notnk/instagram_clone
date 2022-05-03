@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/resources/auth_methods.dart';
+import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,7 +19,7 @@ class SignupScreenState extends State<SignupScreen> {
   final TextEditingController _passwordController= TextEditingController();
   final TextEditingController _bioController= TextEditingController();
   final TextEditingController _usernameController= TextEditingController();
-
+  Uint8List? _image;
 
   @override
   //the controllers gets disposed after the use
@@ -25,6 +29,13 @@ class SignupScreenState extends State<SignupScreen> {
     _passwordController.dispose();
     _bioController.dispose();
     _usernameController.dispose();
+  }
+
+   void selectImage() async {
+   Uint8List im = await pickImage(ImageSource.gallery);
+   setState(() {
+     _image=im;
+   });
   }
 
   @override
@@ -45,7 +56,10 @@ class SignupScreenState extends State<SignupScreen> {
               //circular widget to accpect to show our selected file
               Stack(
                 children: [
-                  const CircleAvatar(
+                  _image!=null? CircleAvatar(
+                    radius: 64,
+                    backgroundImage: MemoryImage(_image!),
+                  ):const CircleAvatar(
                     radius: 64,
                     backgroundImage: NetworkImage('https://images.unsplash.com/photo-1644982647869-e1337f992828?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60'),
                   ),
@@ -96,7 +110,8 @@ class SignupScreenState extends State<SignupScreen> {
                     email:_emailController.text,
                     password:_passwordController.text,
                     username:_usernameController.text,
-                    bio: _bioController.text,
+                    bio: _bioController.text, 
+                    file: _image!,
                   );
                   print(res);
                 },
@@ -124,7 +139,7 @@ class SignupScreenState extends State<SignupScreen> {
                     child: const Text('Dont have a account?'),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {},
                     child: Container(
                       child: const Text(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/dim/dim.dart';
+import 'package:instagram_clone/utils/dim.dart';
 
 class ResponsiveLayout extends StatelessWidget {
     final Widget mobileScreenLayout;
