@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,6 +19,7 @@ class SignupScreenState extends State<SignupScreen> {
   final TextEditingController _bioController= TextEditingController();
   final TextEditingController _usernameController= TextEditingController();
   Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   //the controllers gets disposed after the use
@@ -36,6 +36,25 @@ class SignupScreenState extends State<SignupScreen> {
    setState(() {
      _image=im;
    });
+  }
+
+  void signUpUser() async {
+  setState(() {
+    _isLoading = true;
+  });
+  String res = await AuthMethods().signUpUser(
+    email:_emailController.text,
+    password:_passwordController.text,
+    username:_usernameController.text,
+    bio: _bioController.text, 
+    file: _image!,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if(res!='success'){
+      ShowSnackBar(res, context);
+    }
   }
 
   @override
@@ -61,7 +80,7 @@ class SignupScreenState extends State<SignupScreen> {
                     backgroundImage: MemoryImage(_image!),
                   ):const CircleAvatar(
                     radius: 64,
-                    backgroundImage: NetworkImage('https://images.unsplash.com/photo-1644982647869-e1337f992828?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60'),
+                    backgroundImage: NetworkImage('https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'),
                   ),
                   Positioned(
                     bottom: -10,
@@ -105,18 +124,14 @@ class SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 24,),
               //button login
               InkWell(
-                onTap: () async {
-                  String res = await AuthMethods().signUpUser(
-                    email:_emailController.text,
-                    password:_passwordController.text,
-                    username:_usernameController.text,
-                    bio: _bioController.text, 
-                    file: _image!,
-                  );
-                  print(res);
-                },
+                onTap:()=> signUpUser(),
                 child: Container(
-                  child:const Text('Sign Up'),
+                  child: _isLoading? const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ), 
+                    ):
+                  const Text('Sign Up'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12,),
