@@ -14,15 +14,15 @@ class AuthMethods{
     required String password,
     required String email,
     required String bio,
-    required Uint8List file,
+    //required Uint8List file,
     }) async {
-      String res="erroe occured";
+      String res="error occured";
       try{
-        if(username.isNotEmpty||password.isNotEmpty||bio.isNotEmpty||file!=null){
+        if(username.isNotEmpty||password.isNotEmpty||bio.isNotEmpty){
           //reg user
           UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
           print(cred.user!.uid);
-          String photoUrl = await StorageMethods().uploadImageToStorage('profilePics', file, false);
+          //String photoUrl = await StorageMethods().uploadImageToStorage('profilePics', file, false);
           //add user to db
           await _firestore.collection('users').doc(cred.user!.uid).set({
             'username':username,
@@ -30,7 +30,7 @@ class AuthMethods{
             'bio':bio,
             'followers':[],
             'following':[],
-            'PhotoUrl': photoUrl,
+            //'PhotoUrl': photoUrl,
           });
           res='success';
           //
@@ -40,5 +40,21 @@ class AuthMethods{
       }
       return res;
     }
-
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = 'Error Occured';
+    try{
+      if(email==null||password==null){
+        await _auth.signInWithEmailAndPassword(email: email, password: password);
+        res = 'success';
+      }else{
+        res = 'Details cant be null';
+      }
+    }catch(e){
+      res = e.toString();
+    }
+    return res;
+  }
 }
