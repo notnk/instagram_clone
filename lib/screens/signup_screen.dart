@@ -36,10 +36,10 @@ class SignupScreenState extends State<SignupScreen> {
   }
 
    void selectImage() async {
-  //  Uint8List im = await pickImage(ImageSource.gallery);
-  //  setState(() {
-  //    _image=im;
-  //  });
+   Uint8List im = await pickImage(ImageSource.gallery);
+   setState(() {
+     _image=im;
+   });
   }
 
   void signUpUser() async {
@@ -51,7 +51,7 @@ class SignupScreenState extends State<SignupScreen> {
     password:_passwordController.text,
     username:_usernameController.text,
     bio: _bioController.text, 
-    //file: _image!,
+    file: _image!,
     );
     setState(() {
       _isLoading = false;
@@ -93,10 +93,10 @@ class SignupScreenState extends State<SignupScreen> {
               //circular widget to accpect to show our selected file
               Stack(
                 children: [
-                  // _image!=null? CircleAvatar(
-                  //   radius: 64,
-                  //   backgroundImage: MemoryImage(_image!),
-                  // ):
+                  _image!=null? CircleAvatar(
+                    radius: 64,
+                    backgroundImage: MemoryImage(_image!),
+                  ):
                   const CircleAvatar(
                     radius: 64,
                     backgroundImage: NetworkImage('https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'),

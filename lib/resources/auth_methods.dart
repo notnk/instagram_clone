@@ -11,7 +11,7 @@ class AuthMethods{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<model.User> getUserDetails() async {
+  Future<model.User?> getUserDetails() async {
 
     User currentUser = _auth.currentUser!;
     DocumentSnapshot snap = await _firestore.collection('users').doc(currentUser.uid).get();
@@ -25,7 +25,7 @@ class AuthMethods{
     required String password,
     required String email,
     required String bio,
-    //required Uint8List file,
+    required Uint8List file,
     }) async {
       String res="error occured";
       try{
@@ -33,7 +33,7 @@ class AuthMethods{
           //reg user
           UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
           print(cred.user!.uid);
-          //String photoUrl = await StorageMethods().uploadImageToStorage('profilePics', file, false);
+          String photoUrl = await StorageMethods().uploadImageToStorage('profilePics', file, false);
          
           //add user to db
 
@@ -44,6 +44,7 @@ class AuthMethods{
             following: [],
             uid: cred.user!.uid,
             username: username,
+            photoUrl: photoUrl,
           );
 
           await _firestore.collection('users').doc(cred.user!.uid).set(user.toJson(),);

@@ -4,7 +4,7 @@ class User{
 
   final String username;
   final String bio;
-  //final String photoUrl;
+  final String photoUrl;
   final List followers;
   final List following;
   final String email;
@@ -17,6 +17,7 @@ class User{
     required this.username,
     required this.email,
     required this.uid,
+    required this.photoUrl,
   });
 
   Map<String,dynamic> toJson() =>{
@@ -37,6 +38,7 @@ class User{
       username: snapshot['username'], 
       email: snapshot['email'], 
       uid: snapshot['uid'],
+      photoUrl: snapshot['photoUrl']
       );
   }
 }

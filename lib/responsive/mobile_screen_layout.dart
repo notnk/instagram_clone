@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/models/user.dart' as model;
+import 'package:instagram_clone/utils/global_varialbles.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/add_post_screen.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({ Key? key }) : super(key: key);
@@ -39,13 +42,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     return SafeArea(
       child: Scaffold(
         body: PageView(
-          children:const  [
-            Text('feed'),
-            Text('search'),
-            Text('add'),
-            Text('noti'),
-            Text('profile'),
-          ],
+          children: homeScreenItems ,
           controller: pageController,
           onPageChanged: onPageChanged,
           physics: const NeverScrollableScrollPhysics(),
