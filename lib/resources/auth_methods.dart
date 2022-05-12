@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:instagram_clone/resources/storage_methods.dart';
 import 'package:instagram_clone/models/user.dart' as model ;
 
@@ -61,7 +60,7 @@ class AuthMethods{
   }) async {
     String res = 'Error Occured';
     try{
-      if(email==null||password==null){
+      if(email!=null||password!=null){
         await _auth.signInWithEmailAndPassword(email: email, password: password);
         res = 'success';
       }else{
