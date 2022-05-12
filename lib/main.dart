@@ -30,31 +30,32 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         title: 'Instagram clone',
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context,snapshot){
-            if(snapshot.connectionState == ConnectionState.active){
-              if(snapshot.hasData){
-                return const ResponsiveLayout(
-                  mobileScreenLayout: MobileScreenLayout(), 
-                  webScreenLayout: WebScreenLayout()
-                );
-              }else if(snapshot.hasError){
-                return Center(
-                  child: Text('${snapshot.error}'),
-                );
-              }
-            }
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              );
-            }
-            return const LoginScreen();
-          },
-        ),
+        home: SignupScreen(),
+        // home: StreamBuilder(
+        //   stream: FirebaseAuth.instance.authStateChanges(),
+        //   builder: (context,snapshot){
+        //     if(snapshot.connectionState == ConnectionState.active){
+        //       if(snapshot.hasData){
+        //         return const ResponsiveLayout(
+        //           mobileScreenLayout: MobileScreenLayout(), 
+        //           webScreenLayout: WebScreenLayout()
+        //         );
+        //       }else if(snapshot.hasError){
+        //         return Center(
+        //           child: Text('${snapshot.error}'),
+        //         );
+        //       }
+        //     }
+        //     if(snapshot.connectionState == ConnectionState.waiting){
+        //       return const Center(
+        //         child: CircularProgressIndicator(
+        //           color: Colors.white,
+        //         ),
+        //       );
+        //     }
+        //     return const LoginScreen();
+        //   },
+        // ),
       ),
     );
   }

@@ -7,36 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:188180113901:android:39453c5ae27719f2b2dfe4",
-        "android_client_info": {
-          "package_name": "com.android.application"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "188180113901-vsrqgiuuof3em3hcbclm5835rrqa2vl9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAF1KOduYQFqHZoLR-CSj7kXynn2bAmSRs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "188180113901-vsrqgiuuof3em3hcbclm5835rrqa2vl9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:188180113901:android:be024a57c33d5433b2dfe4",
+        "mobilesdk_app_id": "1:188180113901:android:667d2bb821830b34b2dfe4",
         "android_client_info": {
           "package_name": "com.example.instagram_clone"
         }
