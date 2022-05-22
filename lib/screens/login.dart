@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 24,),
               //button login
               InkWell(
-                onTap: () => loginUser,
+                onTap: loginUser,
                 child: Container(
                   child:_isLoading? const Center(child:CircularProgressIndicator(
                     color: Colors.white,

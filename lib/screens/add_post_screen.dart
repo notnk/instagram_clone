@@ -20,7 +20,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   bool _isLoading = false;
 
   void postImage(
-    String uid,
+    String uid,//a unique id created using uuid dependinces
     String username,
     String profImage,
   ) async {
